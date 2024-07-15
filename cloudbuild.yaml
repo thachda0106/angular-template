@@ -1,0 +1,32 @@
+steps:
+  # Build the container image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      -  'asia-east1-docker.pkg.dev/test-deploy-cloud-run-429003/asia-east1/angular18-img:${SHORT_SHA}'
+      - '--build-arg'
+      - 'APP_ENV=${_APP_ENV}'
+      - '.'
+
+  # Push the container image to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      -  'asia-east1-docker.pkg.dev/test-deploy-cloud-run-429003/asia-east1/angular18-img:${SHORT_SHA}'
+
+  # Deploy container image to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'angular18'
+      - '--image=asia-east1-docker.pkg.dev/test-deploy-cloud-run-429003/asia-east1/angular18-img:${SHORT_SHA}'
+      - '--region=$LOCATION'
+      - '--platform=managed'
+      - '--ingress=all'
+      - '--allow-unauthenticated'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
