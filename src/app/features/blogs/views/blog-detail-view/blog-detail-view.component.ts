@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Observable, of, switchMap, tap } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-blog-detail-view',
@@ -10,20 +10,14 @@ import { Observable, of, switchMap, tap } from 'rxjs';
   templateUrl: './blog-detail-view.component.html',
   styleUrl: './blog-detail-view.component.scss',
 })
-
 export class BlogDetailViewComponent {
+  @Input() slug!: string;
   blogId: number;
-  blogDetail$: Observable<{ id: number; name: string }>;
+  blogDetail$: Observable<{ id: string; name: string }>;
 
-  constructor(private currentRoute: ActivatedRoute, private router: Router ) {}
+  constructor(private router: Router) {}
   ngOnInit() {
-    this.blogId = Number(this.currentRoute.snapshot.paramMap.get('slug'));
-
-    this.blogDetail$ = this.currentRoute.paramMap.pipe(
-      switchMap((params) => {
-        return of({ id: this.blogId, name: 'Thach' });
-      })
-    );
+    this.blogDetail$ = of({ id: this.slug, name: 'Thach' });
   }
 
   goToBlogsPage() {
