@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject, Optional } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { DefaultLayoutComponent } from '../shared/layout/default-layout/default-layout.component';
+import { REQUEST } from '../core/tokens/express';
 
 @Component({
   selector: 'app-root',
@@ -11,4 +12,8 @@ import { DefaultLayoutComponent } from '../shared/layout/default-layout/default-
 })
 export class AppComponent {
   title = 'angular-template-app';
+
+  constructor(@Optional() @Inject(REQUEST) req: Request) {
+    console.log({ req: req?.body });
+  }
 }
