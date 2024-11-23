@@ -1,11 +1,18 @@
-import { LoginViewComponent } from './views/login-view/login-view.component';
-import { RegisterViewComponent } from './views/register-view/register-view.component';
-
 export const authRoutes = [
-  { path: 'auth/login', title: 'Login page app', component: LoginViewComponent },
+  {
+    path: 'auth/login',
+    title: 'Login page app',
+    loadComponent: () =>
+      import('./views/login-view/login-view.component').then(
+        (m) => m.LoginViewComponent,
+      ),
+  },
   {
     path: 'auth/register',
     title: 'Register page app',
-    component: RegisterViewComponent,
+    loadComponent: () =>
+      import('./views/register-view/register-view.component').then(
+        (m) => m.RegisterViewComponent,
+      ),
   },
 ];
