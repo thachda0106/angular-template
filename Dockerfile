@@ -1,4 +1,4 @@
-FROM node:20 as build
+FROM node:22.5.1 as build
 WORKDIR /app
 ARG APP_ENV=prd
 

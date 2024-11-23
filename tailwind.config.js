@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+
+const tailwindConfig = {
   content: ["./src/**/*.{html,ts}"],
   theme: {
     extend: {
@@ -8,9 +9,11 @@ module.exports = {
         md: "768px",
         lg: "1024px",
         xl: "1280px",
-        "2xl": "1440px",
+        xxl: "1440px",
       },
     },
   },
   plugins: [],
 };
+
+export default tailwindConfig;
