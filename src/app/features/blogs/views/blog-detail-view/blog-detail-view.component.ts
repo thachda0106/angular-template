@@ -1,12 +1,12 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-blog-detail-view',
   standalone: true,
-  imports: [AsyncPipe, RouterLink],
+  imports: [AsyncPipe],
   templateUrl: './blog-detail-view.component.html',
   styleUrl: './blog-detail-view.component.scss',
 })
@@ -17,7 +17,7 @@ export class BlogDetailViewComponent {
 
   constructor(private router: Router) {}
   ngOnInit() {
-    this.blogDetail$ = of({ id: this.slug, name: 'Thach' });
+    this.blogDetail$ = of({ id: this.slug, name: 'Thach' }); //TODO fix get slug and fix build ssr
   }
 
   goToBlogsPage() {
